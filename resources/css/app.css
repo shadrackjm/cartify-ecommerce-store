@@ -141,3 +141,21 @@
         @apply bg-background text-foreground;
     }
 }
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .invoice-paper {
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+        padding: 0;
+    }
+}

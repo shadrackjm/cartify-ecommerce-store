@@ -5,8 +5,19 @@ import { initializeTheme } from '@/hooks/use-appearance';
 import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import StorefrontLayout from '@/layouts/storefront-layout';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+const STOREFRONT_PREFIXES = [
+    'shop/',
+    'products/',
+    'cart/',
+    'checkout/',
+    'orders/',
+    'wishlist/',
+    'addresses/',
+];
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -18,6 +29,10 @@ createInertiaApp({
                 return AuthLayout;
             case name.startsWith('settings/'):
                 return [AppLayout, SettingsLayout];
+            case name.startsWith('admin/'):
+                return AppLayout;
+            case STOREFRONT_PREFIXES.some((prefix) => name.startsWith(prefix)):
+                return StorefrontLayout;
             default:
                 return AppLayout;
         }
